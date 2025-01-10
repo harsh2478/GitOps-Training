@@ -10,18 +10,18 @@ spec:
   - list:
       elements:
       - cluster: test
-        url: https://kubernetes.default.svc
+        url: https://192.168.59.115:8443
       - cluster: prod
-        url: https://kubernetes.default.svc
+        url: https://192.168.59.116:8443
   template:
     metadata:
-      name: '{{.cluster}}-guestbook'
+      name: '{{.cluster}}-app'
     spec:
       project: "my-project"
       source:
-        repoURL: https://github.com/argoproj/argo-cd.git
+        repoURL: https://github.com/harsh2478/GitOps-Training.git
         targetRevision: HEAD
-        path: applicationset/examples/list-generator/guestbook/{{.cluster}}
+        path: 'multienv/{{.cluster}}'
       destination:
         server: '{{.url}}'
-        namespace: guestbook
+        namespace: default
