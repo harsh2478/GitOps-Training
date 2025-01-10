@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: argocd-prod-rolebinding
+  namespace: default 
+subjects:
+  - kind: ServiceAccount
+    name: argocd-prod
+    apiGroup: ""
+roleRef:
+  kind: Role
+  name: argocd-prod-role
+  apiGroup: rbac.authorization.k8s.io 

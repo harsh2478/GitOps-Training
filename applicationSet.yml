@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: multi-cluster-appset
+  namespace: argocd
+spec:
+  generators:
+    - clusters:
+        selectors:
+          matchLabels:
+            environment: production
+  template:
+    metadata:
+      name: '{{name}}-application'
+      namespace: argocd 
+    spec:
+      project: default
+      destination:
+        server: '{{server}}'
+        namespace: default
+      source:
+        repoURL: 'https://github.com/harsh2478/GitOps-Training.git'
+        path: Production
+        targetRevision: HEAD
+      syncPolicy:
+        automated:
+          prune: true
+
